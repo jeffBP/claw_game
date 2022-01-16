@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.13)
 
 project(Test VERSION 1.0)
 
@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_COMPILER g++)
 
 add_executable(claw_game main.cpp)
+
+target_link_libraries(claw_game PUBLIC src)
 
 configure_file(Config.h.in Config.h)
 

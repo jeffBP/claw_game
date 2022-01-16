@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "block.hpp"
+#include "block_fwd.hpp"
 
 using BlockPtr = std::shared_ptr<Block>;
 

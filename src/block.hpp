@@ -1,10 +1,11 @@
 #pragma once
+
 #include <string>
 #include <memory>
 
 class Block {
   public:
-    Block(std::string name);
+    Block(std::string name) { name_ = name; };
 
     std::string GetName() { return name_; };
 
