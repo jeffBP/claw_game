@@ -1,19 +1,31 @@
 #include "goal_tree.hpp"
 
 #include <algorithm>
+#include <memory>
 
 #include "block.hpp"
-static bool CompareOrGroups(std::vector<GoalTreeNodePtr>& group1, std::vector<GoalTreeNodePtr>& group2)
+static bool CompareOrGroups(std::vector<GoalTreeNodePtr>& or_group1, std::vector<GoalTreeNodePtr>& or_group2)
 {
     uint16_t group1_size = 0;
-    for (const GoalTreeNodePtr& node : group1) {
+    for (const GoalTreeNodePtr& node : or_group1) {
         group1_size = group1_size + node->GetSize();
     }
     uint16_t group2_size = 0;
-    for (const GoalTreeNodePtr& node : group2) {
+    for (const GoalTreeNodePtr& node : or_group2) {
         group2_size = group2_size + node->GetSize();
     }
     return group1_size >= group2_size;
+}
+
+GoalTreeNodePtr GoalTreeNode::Create(const ClawAction action, const BlockPtr block_arg1, const BlockPtr block_arg2)
+{
+    if (!block_arg1) {
+        return std::make_shared<GoalTreeNode>(action);
+    } else if (!block_arg2) {
+        return std::make_shared<GoalTreeNode>(action, block_arg1);
+    } else {
+        return std::make_shared<GoalTreeNode>(action, block_arg1, block_arg2);
+    }
 }
 
 GoalTreeNode::GoalTreeNode() : action_(ClawAction::UNKNOWN) {}

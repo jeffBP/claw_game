@@ -9,3 +9,5 @@ target_sources(src
         claw_action.hpp
         goal_tree.hpp
         goal_tree.cpp)
+
+add_subdirectory(test)
