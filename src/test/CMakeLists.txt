@@ -2,7 +2,7 @@ enable_testing()
 add_executable(
     goal_tree_test
     goal_tree_test.cpp
-    test_utils.cpp
+    test_utils.hpp
 )
 
 find_package(GTest CONFIG REQUIRED)

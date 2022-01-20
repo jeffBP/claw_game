@@ -1,6 +1,8 @@
+#pragma once
+
 #include "../goal_tree.hpp"
 
-bool is_or_group_vec_max_heap(const std::vector<std::vector<GoalTreeNodePtr>>& or_group_vector) {
+bool IsOrGroupVectorMinHeap(const std::vector<std::vector<GoalTreeNodePtr>>& or_group_vector) {
     for (int i = 0; i < or_group_vector.size(); ++i) {
         uint16_t parent_or_group_size = 0;
         for (const GoalTreeNodePtr& node : or_group_vector.at(i)){
@@ -13,7 +15,7 @@ bool is_or_group_vec_max_heap(const std::vector<std::vector<GoalTreeNodePtr>>& o
             for (const GoalTreeNodePtr& node : or_group_vector.at(left_child_idx)) {
                 left_child_size = left_child_size + node->GetSize();
             }
-            if (left_child_size > parent_or_group_size) {
+            if (left_child_size < parent_or_group_size) {
                 return false;
             }
         }
@@ -22,7 +24,7 @@ bool is_or_group_vec_max_heap(const std::vector<std::vector<GoalTreeNodePtr>>& o
             for (const GoalTreeNodePtr& node : or_group_vector.at(right_child_idx)) {
                 right_child_size = right_child_size + node->GetSize();
             }
-            if (right_child_size > parent_or_group_size) {
+            if (right_child_size < parent_or_group_size) {
                 return false;
             }
         }

@@ -17,29 +17,18 @@ static bool CompareOrGroups(std::vector<GoalTreeNodePtr>& or_group1, std::vector
     return group1_size >= group2_size;
 }
 
-GoalTreeNodePtr GoalTreeNode::Create(const ClawAction action, const BlockPtr block_arg1, const BlockPtr block_arg2)
+GoalTreeNodePtr GoalTreeNode::Create(const ClawAction action, const GoalTreeNodePtr parent)
 {
-    if (!block_arg1) {
-        return std::make_shared<GoalTreeNode>(action);
-    } else if (!block_arg2) {
-        return std::make_shared<GoalTreeNode>(action, block_arg1);
-    } else {
-        return std::make_shared<GoalTreeNode>(action, block_arg1, block_arg2);
-    }
+    return std::make_shared<GoalTreeNode>(action, nullptr, nullptr, parent);
 }
 
-GoalTreeNode::GoalTreeNode() : action_(ClawAction::UNKNOWN) {}
-
-GoalTreeNode::GoalTreeNode(const ClawAction action) : action_(action) {}
-
-GoalTreeNode::GoalTreeNode(const ClawAction action, const BlockPtr block_arg)
-            :  action_(action)
+GoalTreeNodePtr GoalTreeNode::Create(const ClawAction action, const BlockPtr block_arg1, const BlockPtr block_arg2, GoalTreeNodePtr parent)
 {
-    block_args_.push_back(block_arg);
+    return std::make_shared<GoalTreeNode>(action, block_arg1, block_arg2, parent);
 }
 
-GoalTreeNode::GoalTreeNode(const ClawAction action, const BlockPtr block_arg1, const BlockPtr block_arg2)
-            : action_(action)
+GoalTreeNode::GoalTreeNode(const ClawAction action, const BlockPtr block_arg1, const BlockPtr block_arg2, const GoalTreeNodePtr parent)
+            : action_(action), parent_(parent)
 {
     block_args_.push_back(block_arg1);
     block_args_.push_back(block_arg2);
@@ -61,8 +50,19 @@ uint16_t GoalTreeNode::GetSize()
     return node_size;
 }
 
+void GoalTreeNode::HeapifyOrGroupVec()
+{
+    if( parent_ ){
+        parent_->HeapifyOrGroupVec();
+    }
+    std::make_heap(or_node_groups_.begin(), or_node_groups_.end(), CompareOrGroups);
+}
+
 void GoalTreeNode::AddOrGroup(const std::vector<GoalTreeNodePtr>& or_group)
 {
+    for (GoalTreeNodePtr node : or_group) {
+        ;
+    }
     or_node_groups_.push_back(or_group);
-    std::make_heap(or_node_groups_.begin(), or_node_groups_.end(), CompareOrGroups);
+    HeapifyOrGroupVec();
 }
