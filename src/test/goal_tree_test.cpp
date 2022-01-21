@@ -85,4 +85,20 @@ TEST(GoalTreeTest, OrGroupVectorMinHeapTest)
 
     EXPECT_EQ(3, root_node->GetLowestDifficultyOrGroup().size());
     EXPECT_TRUE(IsOrGroupVectorMinHeap(root_node->GetOrGroups()));
+
+    GoalTreeNodePtr sub_node_f = GoalTreeNode::Create(ClawAction::UNKNOWN, root_node);
+    root_node->AddOrGroup({sub_node_f});
+
+    EXPECT_EQ(1, root_node->GetLowestDifficultyOrGroup().size());
+    EXPECT_TRUE(IsOrGroupVectorMinHeap(root_node->GetOrGroups()));
+}
+
+TEST(GoalTreeTest, GoalTreeNodeParentTest)
+{
+    GoalTreeNodePtr root_node = GoalTreeNode::Create(ClawAction::UNKNOWN);
+    EXPECT_EQ(root_node->GetParent(), nullptr);
+
+    GoalTreeNodePtr sub_node_a = GoalTreeNode::Create(ClawAction::UNKNOWN, root_node);
+    EXPECT_EQ(root_node->GetParent(), nullptr);
+    EXPECT_EQ(sub_node_a->GetParent(), root_node);
 }

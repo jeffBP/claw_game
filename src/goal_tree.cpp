@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "block.hpp"
+
 static bool CompareOrGroups(std::vector<GoalTreeNodePtr>& or_group1, std::vector<GoalTreeNodePtr>& or_group2)
 {
     uint16_t group1_size = 0;

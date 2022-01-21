@@ -19,6 +19,7 @@ class GoalTreeNode {
     const std::vector<GoalTreeNodePtr>& GetLowestDifficultyOrGroup() { return or_node_groups_.front(); };
     void SetComplete(const bool is_complete) { goal_complete_ = is_complete; };
     const std::vector<std::vector<GoalTreeNodePtr>>& GetOrGroups() { return or_node_groups_; };
+    GoalTreeNodePtr GetParent() { return parent_; };
 
     void HeapifyOrGroupVec();
 

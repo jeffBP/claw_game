@@ -3,19 +3,30 @@
 #include <string>
 #include <memory>
 
+class Block;
+using BlockPtr = std::shared_ptr<Block>;
+
 class Block {
   public:
-    Block(std::string name) { name_ = name; };
+    static BlockPtr Create(const std::string name, const BlockPtr parent_block=nullptr);
+    Block(const std::string name, const BlockPtr parent_block=nullptr);
 
     std::string GetName() { return name_; };
 
-    bool IsSupporting() { return top_block_ != nullptr; };
+    bool IsBlocked() { return child_block_ != nullptr; };
 
-    std::shared_ptr<Block> GetTopBlock() { return top_block_; };
+    BlockPtr GetChildBlock() { return child_block_; };
 
-    void SetTopBlock(std::shared_ptr<Block> top_block) { top_block_ = top_block; };
+    void SetChildBlock(BlockPtr sub_block) { child_block_ = sub_block; };
+
+    bool IsBlocking() { return parent_block_ != nullptr; };
+
+    BlockPtr GetParent() { return parent_block_; };
+
+    void PopChildBlock() { child_block_.reset(); };
 
   private:
     std::string name_;
-    std::shared_ptr<Block> top_block_;
+    BlockPtr child_block_; // Block placed above this block.
+    BlockPtr parent_block_; // Block placed below this block.
 };

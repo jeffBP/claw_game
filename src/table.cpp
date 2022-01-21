@@ -20,10 +20,10 @@ void Table::AddBlockToTable(BlockPtr block) {
 
 void Table::AddBlockToStack(BlockPtr block, int stack_idx) {
     BlockPtr cur_block = block_stacks_.at(stack_idx);
-    while ( cur_block->GetTopBlock() ) {
-        cur_block = cur_block->GetTopBlock();
+    while ( cur_block->GetChildBlock() ) {
+        cur_block = cur_block->GetChildBlock();
     }
-    cur_block->SetTopBlock(block);
+    cur_block->SetChildBlock(block);
 }
 
 // BlockPtr Table::RemoveBlockFromStack(int stack_idx) {

@@ -5,9 +5,20 @@ add_executable(
     test_utils.hpp
 )
 
+add_executable(
+    block_test
+    block_test.cpp
+)
+
 find_package(GTest CONFIG REQUIRED)
 target_link_libraries(
     goal_tree_test
+    GTest::gtest
+    gtest_main
+    src
+)
+target_link_libraries(
+    block_test
     GTest::gtest
     gtest_main
     src
