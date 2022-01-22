@@ -10,6 +10,11 @@ add_executable(
     block_test.cpp
 )
 
+add_executable(
+    table_test
+    table_test.cpp
+)
+
 find_package(GTest CONFIG REQUIRED)
 target_link_libraries(
     goal_tree_test
@@ -17,8 +22,16 @@ target_link_libraries(
     gtest_main
     src
 )
+
 target_link_libraries(
     block_test
+    GTest::gtest
+    gtest_main
+    src
+)
+
+target_link_libraries(
+    table_test
     GTest::gtest
     gtest_main
     src

@@ -10,17 +10,19 @@ using BlockPtr = std::shared_ptr<Block>;
 
 class Table {
   public:
-    Table(int num_stacks);
+    Table(const int num_stacks);
+
+    int GetTableSpace();
 
     void AddBlockToTable(BlockPtr block);
 
-    void AddBlockToStack(BlockPtr block, int stack_idx);
+    void AddBlockToStack(BlockPtr block, const int stack_idx);
+
+    std::pair<int, int> FindBlockOnTable(const std::string block_name);
 
     BlockPtr RemoveBlockFromTable(BlockPtr block);
 
-    BlockPtr RemoveBlockFromStack(int stack);
-
-    void FindBlockOnTable(std::string block_name);
+    BlockPtr RemoveBlockFromStack(const int stack);
 
   private:
     std::vector<BlockPtr> block_stacks_;
