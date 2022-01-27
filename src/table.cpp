@@ -20,7 +20,8 @@ int Table::GetTableSpace() {
     return -1;
 }
 
-void Table::AddBlockToStack(BlockPtr block, const int stack_idx) {
+void Table::AddBlockToStack(BlockPtr block, const int stack_idx)
+{
     BlockPtr cur_block = block_stacks_.at(stack_idx);
     if (!cur_block) {
         block_stacks_[stack_idx] = block;
@@ -30,6 +31,7 @@ void Table::AddBlockToStack(BlockPtr block, const int stack_idx) {
         cur_block = cur_block->GetChildBlock();
     }
     cur_block->SetChildBlock(block);
+    block->SetParentBlock(cur_block);
 }
 
 std::pair<int, int> Table::FindBlockOnTable(const std::string block_name)
@@ -48,4 +50,15 @@ std::pair<int, int> Table::FindBlockOnTable(const std::string block_name)
         depth = 0;
     }
     return std::make_pair(-1, -1);
+}
+
+BlockPtr Table::RemoveBlockFromStack(const int stack_idx)
+{
+    BlockPtr cur_block = block_stacks_.at(stack_idx);
+    while(cur_block->GetChildBlock() != nullptr) {
+        std::cout << cur_block->GetName() << std::endl;
+        cur_block = cur_block->GetChildBlock();
+    }
+    cur_block->GetParent()->PopChildBlock();
+    return cur_block;
 }

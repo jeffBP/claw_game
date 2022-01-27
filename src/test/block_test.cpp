@@ -12,4 +12,13 @@ TEST(BlockTest, BlockTest) {
     EXPECT_EQ(block_a->GetChildBlock(), block_b);
     block_a->PopChildBlock();
     EXPECT_EQ(block_a->GetChildBlock(), nullptr);
+    BlockPtr block_c = Block::Create("C");
+    EXPECT_NE(block_c->GetParent(), block_a);
+    block_a->SetChildBlock(block_c);
+    EXPECT_NE(block_c->GetParent(), block_a);
+    EXPECT_EQ(block_a->GetChildBlock(), block_c);
+    block_c->SetParentBlock(block_a);
+    EXPECT_EQ(block_c->GetParent(), block_a);
+    EXPECT_TRUE(block_a->IsBlocked());
+    EXPECT_TRUE(block_c->IsBlocking());
 }

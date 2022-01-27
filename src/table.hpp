@@ -20,9 +20,7 @@ class Table {
 
     std::pair<int, int> FindBlockOnTable(const std::string block_name);
 
-    BlockPtr RemoveBlockFromTable(BlockPtr block);
-
-    BlockPtr RemoveBlockFromStack(const int stack);
+    BlockPtr RemoveBlockFromStack(const int stack_idx);
 
   private:
     std::vector<BlockPtr> block_stacks_;

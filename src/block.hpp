@@ -17,13 +17,15 @@ class Block {
 
     BlockPtr GetChildBlock() { return child_block_; };
 
-    void SetChildBlock(BlockPtr sub_block) { child_block_ = sub_block; };
+    void SetChildBlock(BlockPtr sub_block);
 
     bool IsBlocking() { return parent_block_ != nullptr; };
 
+    void SetParentBlock(BlockPtr parent_block);
+    
     BlockPtr GetParent() { return parent_block_; };
 
-    void PopChildBlock() { child_block_.reset(); };
+    void PopChildBlock() { child_block_ = nullptr; };
 
   private:
     std::string name_;
