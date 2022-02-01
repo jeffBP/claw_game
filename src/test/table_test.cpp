@@ -4,18 +4,15 @@
 #include "../table.hpp"
 
 TEST(TableTest, TableTest) {
-    int num_stacks = 3;
-    Table table = Table(num_stacks);
+    Table table = Table();
     BlockPtr block_a = Block::Create("A");
     BlockPtr block_b = Block::Create("B");
     BlockPtr block_c = Block::Create("C");
-    int open_table_idx = table.GetTableSpace();
-    table.AddBlockToStack(block_a, open_table_idx);
-    table.AddBlockToStack(block_b, open_table_idx);
+    table.AddBlockToTable(block_a);
+    std::pair<int, int> block_a_idx = table.FindBlockOnTable(block_a->GetName());
+    table.AddBlockToStack(block_b, block_a_idx.first);
     EXPECT_EQ(block_b->GetParent(), block_a);
-    int block_a_stack_idx = open_table_idx;
-    open_table_idx = table.GetTableSpace();
-    table.AddBlockToStack(block_c, open_table_idx);
+    table.AddBlockToTable(block_c);
     std::pair<int, int> block_a_loc = table.FindBlockOnTable("A");
     std::pair<int, int> block_b_loc = table.FindBlockOnTable("B");
     std::pair<int, int> block_c_loc = table.FindBlockOnTable("C");

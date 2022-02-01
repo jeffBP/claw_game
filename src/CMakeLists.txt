@@ -9,6 +9,8 @@ target_sources(src
         table.cpp
         claw_action.hpp
         goal_tree.hpp
-        goal_tree.cpp)
+        goal_tree.cpp
+        game.hpp
+        game.cpp)
 
 add_subdirectory(test)

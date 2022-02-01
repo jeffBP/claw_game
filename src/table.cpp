@@ -5,19 +5,10 @@
 
 #include "block.hpp"
 
-Table::Table(const int num_stacks) {
-    block_stacks_ = std::vector<BlockPtr>(num_stacks, nullptr);
-}
+Table::Table() {}
 
-int Table::GetTableSpace() {
-    for (int i = 0; i < block_stacks_.size(); ++i) {
-        if ( block_stacks_.at(i) == nullptr) {
-            std::cout << "Found table space at index " << i << "." << std::endl;
-            return i;
-        }
-    }
-    std::cout << "Could not find table space.";
-    return -1;
+void Table::AddBlockToTable(BlockPtr block) {
+    block_stacks_.push_back(block);
 }
 
 void Table::AddBlockToStack(BlockPtr block, const int stack_idx)
@@ -50,6 +41,19 @@ std::pair<int, int> Table::FindBlockOnTable(const std::string block_name)
         depth = 0;
     }
     return std::make_pair(-1, -1);
+}
+
+BlockPtr Table::GetBlock(const std::string block_name)
+{
+    for (BlockPtr block: block_stacks_) {
+        while(block != nullptr) {
+            if (block->GetName() == block_name) {
+                return block;
+            }
+            block = block->GetChildBlock();
+        }        
+    }
+    return nullptr;
 }
 
 BlockPtr Table::RemoveBlockFromStack(const int stack_idx)

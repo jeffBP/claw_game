@@ -18,11 +18,6 @@ static bool CompareOrGroups(std::vector<GoalTreeNodePtr>& or_group1, std::vector
     return group1_size >= group2_size;
 }
 
-GoalTreeNodePtr GoalTreeNode::Create(const ClawAction action, const GoalTreeNodePtr parent)
-{
-    return std::make_shared<GoalTreeNode>(action, nullptr, nullptr, parent);
-}
-
 GoalTreeNodePtr GoalTreeNode::Create(const ClawAction action, const BlockPtr block_arg1, const BlockPtr block_arg2, GoalTreeNodePtr parent)
 {
     return std::make_shared<GoalTreeNode>(action, block_arg1, block_arg2, parent);

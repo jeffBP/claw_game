@@ -12,7 +12,6 @@ using GoalTreeNodePtr = std::shared_ptr<GoalTreeNode>;
 
 class GoalTreeNode {
   public: 
-    static GoalTreeNodePtr Create(const ClawAction action, const GoalTreeNodePtr parent);
     static GoalTreeNodePtr Create(const ClawAction action=ClawAction::UNKNOWN, const BlockPtr block_arg1=nullptr, const BlockPtr block_arg2=nullptr, const GoalTreeNodePtr parent=nullptr);
     GoalTreeNode(const ClawAction action=ClawAction::UNKNOWN, const BlockPtr block_arg1=nullptr, const BlockPtr block_arg2=nullptr, const GoalTreeNodePtr parent=nullptr);
 

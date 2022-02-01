@@ -66,12 +66,12 @@ TEST(GoalTreeTest, OrGroupVectorMinHeapTest)
      
     GoalTreeNodePtr root_node = GoalTreeNode::Create(ClawAction::UNKNOWN);
     
-    GoalTreeNodePtr sub_node_a = GoalTreeNode::Create(ClawAction::UNKNOWN, root_node);
-    GoalTreeNodePtr sub_node_b = GoalTreeNode::Create(ClawAction::UNKNOWN, root_node);
+    GoalTreeNodePtr sub_node_a = GoalTreeNode::Create(ClawAction::UNKNOWN, nullptr, nullptr, root_node);
+    GoalTreeNodePtr sub_node_b = GoalTreeNode::Create(ClawAction::UNKNOWN, nullptr, nullptr, root_node);
 
-    GoalTreeNodePtr sub_node_c = GoalTreeNode::Create(ClawAction::UNKNOWN, root_node);
-    GoalTreeNodePtr sub_node_d = GoalTreeNode::Create(ClawAction::UNKNOWN, root_node);
-    GoalTreeNodePtr sub_node_e = GoalTreeNode::Create(ClawAction::UNKNOWN, root_node);
+    GoalTreeNodePtr sub_node_c = GoalTreeNode::Create(ClawAction::UNKNOWN, nullptr, nullptr, root_node);
+    GoalTreeNodePtr sub_node_d = GoalTreeNode::Create(ClawAction::UNKNOWN, nullptr, nullptr, root_node);
+    GoalTreeNodePtr sub_node_e = GoalTreeNode::Create(ClawAction::UNKNOWN, nullptr, nullptr, root_node);
 
     root_node->AddOrGroup({sub_node_a, sub_node_b});
     root_node->AddOrGroup({sub_node_c, sub_node_d, sub_node_e});
@@ -86,7 +86,7 @@ TEST(GoalTreeTest, OrGroupVectorMinHeapTest)
     EXPECT_EQ(3, root_node->GetLowestDifficultyOrGroup().size());
     EXPECT_TRUE(IsOrGroupVectorMinHeap(root_node->GetOrGroups()));
 
-    GoalTreeNodePtr sub_node_f = GoalTreeNode::Create(ClawAction::UNKNOWN, root_node);
+    GoalTreeNodePtr sub_node_f = GoalTreeNode::Create(ClawAction::UNKNOWN, nullptr, nullptr, root_node);
     root_node->AddOrGroup({sub_node_f});
 
     EXPECT_EQ(1, root_node->GetLowestDifficultyOrGroup().size());
@@ -98,7 +98,7 @@ TEST(GoalTreeTest, GoalTreeNodeParentTest)
     GoalTreeNodePtr root_node = GoalTreeNode::Create(ClawAction::UNKNOWN);
     EXPECT_EQ(root_node->GetParent(), nullptr);
 
-    GoalTreeNodePtr sub_node_a = GoalTreeNode::Create(ClawAction::UNKNOWN, root_node);
+    GoalTreeNodePtr sub_node_a = GoalTreeNode::Create(ClawAction::UNKNOWN, nullptr, nullptr, root_node);
     EXPECT_EQ(root_node->GetParent(), nullptr);
     EXPECT_EQ(sub_node_a->GetParent(), root_node);
 }

@@ -10,7 +10,7 @@ using BlockPtr = std::shared_ptr<Block>;
 
 class Table {
   public:
-    Table(const int num_stacks);
+    Table();
 
     int GetTableSpace();
 
@@ -19,6 +19,8 @@ class Table {
     void AddBlockToStack(BlockPtr block, const int stack_idx);
 
     std::pair<int, int> FindBlockOnTable(const std::string block_name);
+
+    BlockPtr GetBlock(const std::string block_name); 
 
     BlockPtr RemoveBlockFromStack(const int stack_idx);
 
